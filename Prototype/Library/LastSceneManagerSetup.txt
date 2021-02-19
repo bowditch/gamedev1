@@ -1,5 +1,0 @@
-sceneSetups:
-- path: Assets/Standard Assets/Utility/Scenes/Prototype_Level1.unity
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
