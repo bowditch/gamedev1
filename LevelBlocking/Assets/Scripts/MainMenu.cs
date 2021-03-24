@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
 
-public string StartExperience;
   public void StartExperience()
-  
   {
 
     SceneManager.LoadScene("SecondFloor");
