@@ -1,40 +1,61 @@
-//Uses raycasting to move the bot to the selected area.
+//We want to click anywhere and have target move to spot.
+//Using raycasts and need to track camera placement and mouse click placement
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class ClickThenMove : MonoBehaviour
+public class clickthenmove : MonoBehaviour
 {
-    
-    public GameObject ground;
+
+    public NavMeshAgent agent;
+
+    public Transform rayObject;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        agent = GetComponent<NavMeshAgent>();
+
+    }
 
     // Update is called once per frame
     void Update()
     {
         
-        //Need camera calculated
+        //Input controls
+        //Raycast
+        //Calculate a position for target
 
-        Transform camera = camera.main.transform;
+        if (Input.GetMouseButtonDown(0)) 
+        {
 
-        //Ray and click variables
+            RaycastHit clickHit;
 
-        Ray clickRay;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out clickHit, 200))
+            {
 
+                agent.destination = clickHit.point;
+
+            }
+
+        }
+
+        Ray lineRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        GameObject hitObject;
-
-        Debug.DrawRay(camera.position, camera.rotation * Vector3.forward);
-
-        //create new ray
-
-        clickRay = new Ray(camera.position, camera.rotation * Vector3.forward);
-
-        if(Physics.Raycast (clickRay, out hit))
+        if (Physics.Raycast(lineRay, out hit))
         {
-            
-            hitObject = hit.collider.gamebject; 
+
+            Vector3 incomingVector = hit.point - rayObject.position;
+
+            Vector3 reflectionVector = Vector3.Reflect(incomingVector, hit.normal);
+
+            //Debug.Drawline(start pos, end pos, color, duration, layerMask?)
+            Debug.DrawLine(rayObject.position, hit.point, Color.blue, 4.0f);
+            Debug.DrawRay(hit.point, reflectionVector, Color.red, 4.0f);
 
         }
 
