@@ -53,6 +53,8 @@ public class clickthenmove : MonoBehaviour
 
             Vector3 reflectionVector = Vector3.Reflect(incomingVector, hit.normal);
 
+            Debug.Log(incomingVector);
+
             //Debug.Drawline(start pos, end pos, color, duration, layerMask?)
             Debug.DrawLine(rayObject.position, hit.point, Color.blue, 4.0f);
             Debug.DrawRay(hit.point, reflectionVector, Color.red, 4.0f);
